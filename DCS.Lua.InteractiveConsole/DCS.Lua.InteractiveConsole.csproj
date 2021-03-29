@@ -5,6 +5,11 @@
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DebugSymbols>true</DebugSymbols>
+      <DebugType>none</DebugType>
+    </PropertyGroup>
+
     <ItemGroup>
       <ProjectReference Include="..\DCS.Lua.Connector\DCS.Lua.Connector.csproj" />
     </ItemGroup>
