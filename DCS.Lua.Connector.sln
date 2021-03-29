@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCS.Lua.Connector", "DCS.Lua.Connector\DCS.Lua.Connector.csproj", "{B2B8B327-20DB-4FD0-AA38-9DE6CA334FC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCS.Lua.InteractiveConsole", "DCS.Lua.InteractiveConsole\DCS.Lua.InteractiveConsole.csproj", "{2C64BD90-7853-4955-B756-D3EEBADA5D86}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2B8B327-20DB-4FD0-AA38-9DE6CA334FC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2B8B327-20DB-4FD0-AA38-9DE6CA334FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2B8B327-20DB-4FD0-AA38-9DE6CA334FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2B8B327-20DB-4FD0-AA38-9DE6CA334FC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C64BD90-7853-4955-B756-D3EEBADA5D86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C64BD90-7853-4955-B756-D3EEBADA5D86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C64BD90-7853-4955-B756-D3EEBADA5D86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C64BD90-7853-4955-B756-D3EEBADA5D86}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
