@@ -1,5 +1,13 @@
 local logName = 'DCS.Lua.Connector'
-log.write(logName, log.INFO, "Loading")
+local function logWrite(name, level, message)
+	if log.write ~= nil then
+		log.write(name, level, message)
+	else
+		net.log("["..name.."] "..message)
+	end
+
+end
+logWrite(logName, log.INFO, "Loading")
 
 local function runSnippetIn(env, code)
 	local resultStringCode = [[
@@ -73,7 +81,7 @@ local function runSnippetIn(env, code)
 		success = true
 	else
 		result, success = net.dostring_in(env, resultStringCode)
-		--log.write("Lua Console", log.INFO, "l94: success="..tostring(success))
+		--logWrite("Lua Console", log.INFO, "l94: success="..tostring(success))
 	end
 
 	if not success then
@@ -81,7 +89,7 @@ local function runSnippetIn(env, code)
 	end
 
 	local firstNewlinePos = string.find(result, "\n")
-	--log.write("Lua Console", log.INFO, "firstnewlinepos="..tostring(firstNewlinePos))
+	--logWrite("Lua Console", log.INFO, "firstnewlinepos="..tostring(firstNewlinePos))
 
 	local result_str = string.sub(result, firstNewlinePos+1)
 	local status_str = string.sub(result, 1, firstNewlinePos-1)
@@ -107,14 +115,14 @@ dcsBiosLuaConsole.conn:settimeout(0)
 local function step()
 	local line, err = dcsBiosLuaConsole.conn:receive()
 	if line then
-		log.write(logName, log.INFO, DCS.getRealTime().." UDP Received: "..tostring(line))
+		logWrite(logName, log.INFO, DCS.getRealTime().." UDP Received: "..tostring(line))
 	elseif err then
 		if (err ~= "timeout") then
-			log.write(logName, log.INFO, DCS.getRealTime().." UDP Error: "..tostring(err))
+			logWrite(logName, log.INFO, DCS.getRealTime().." UDP Error: "..tostring(err))
 		end
 		return
 	else
-		log.write(logName, log.INFO, DCS.getRealTime().." UDP Nothing Received")
+		logWrite(logName, log.INFO, DCS.getRealTime().." UDP Nothing Received")
 		return
 	end
 
@@ -148,7 +156,7 @@ local function step()
 		response_msg.result = tostring(result)
 		encode_response()
 	end
-	log.write(logName, log.INFO, DCS.getRealTime().." UDP Send: "..response_string.." to "..dcsBiosLuaConsole.host..':'..dcsBiosLuaConsole.sendPort)
+	logWrite(logName, log.INFO, DCS.getRealTime().." UDP Send: "..response_string.." to "..dcsBiosLuaConsole.host..':'..dcsBiosLuaConsole.sendPort)
 	dcsBiosLuaConsole.conn:sendto(response_string, dcsBiosLuaConsole.host, dcsBiosLuaConsole.sendPort)
 end
 
@@ -156,25 +164,25 @@ local callbacks = {}
 function callbacks.onSimulationFrame()
 	status, err = pcall(step)
 	if not status then
-		log.write(logName, log.INFO, "onSimulationFrame Error: "..tostring(err))
+		logWrite(logName, log.INFO, "onSimulationFrame Error: "..tostring(err))
 	end
 end
 function callbacks.onMissionLoadBegin()
-	log.write(logName, log.INFO, "onMissionLoadBegin")
+	logWrite(logName, log.INFO, "onMissionLoadBegin")
 end
 function callbacks.onMissionLoadProgress(progress, message)
-	-- log.write("DCS.Lua.Connector", log.INFO, "onMissionLoadProgress - "..progress.." - "..message)
+	-- logWrite("DCS.Lua.Connector", log.INFO, "onMissionLoadProgress - "..progress.." - "..message)
 end
 function callbacks.onMissionLoadEnd()
-	log.write(logName, log.INFO, "onMissionLoadEnd")
+	logWrite(logName, log.INFO, "onMissionLoadEnd")
 end
 function callbacks.onSimulationStart()
-	log.write(logName, log.INFO, "onSimulationStart")
+	logWrite(logName, log.INFO, "onSimulationStart")
 end
 function callbacks.onSimulationStop()
-	log.write(logName, log.INFO, "onSimulationStop")
+	logWrite(logName, log.INFO, "onSimulationStop")
 end
 
 DCS.setUserCallbacks(callbacks)
 
-log.write(logName, log.INFO, "Loaded Successfully")
+logWrite(logName, log.INFO, "Loaded Successfully")
